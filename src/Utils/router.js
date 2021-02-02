@@ -1,7 +1,10 @@
 const { Router } = require('express')
-
+const UserController = require('../Controllers/UserController') 
 const router = Router()
+
 // Criar usuarios
+router.post('/users', UserController.createUser)
+router.get('/users', UserController.listUser)
 // Fazer login
 // Fazer logout
 // Ver todas as fotos
