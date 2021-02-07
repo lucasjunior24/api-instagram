@@ -24,7 +24,18 @@ module.exports = {
 
     },
     async listAllPosts(req, res) {
+        try { 
+            const allPosts = await Post.find()
+                .populate('user')
+                
 
+            return res.status(200).send({
+                message: 'Todos os posts',
+                data: allPosts
+            })
+        } catch(err) {
+            return res.status(400).send(err)
+        }
     }, 
     async deletePost(req, res) {
 
