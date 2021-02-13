@@ -38,7 +38,25 @@ module.exports = {
         }
     }, 
     async deletePost(req, res) {
+        const { post_id } = req.params
+        const { user_id } = req.headers
 
+        try { 
+            const helongsToUser = await Post.findOne({ user: user_id })
+            if(!helongsToUser) return res.status(400).send('Este post não pertence a voçê')
+
+            const postExists = await Post.findById(post_id)
+            if(!postExists) return res.status(400).send('Post não existe')
+
+            const deletedPost = await Post.findByIdAndDelete(post_id)
+
+            return res.status(200).send({
+                message: 'Deletado com sucesso!',
+                data: deletedPost
+            })
+        } catch(err) {
+            return res.status(400).send(err)
+        }
     },
     async editPost(req, res) {
 
