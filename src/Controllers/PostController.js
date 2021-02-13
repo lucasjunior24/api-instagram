@@ -42,7 +42,7 @@ module.exports = {
         const { user_id } = req.headers
 
         try { 
-            const helongsToUser = await Post.findOne({ user: user_id })
+            const helongsToUser = await Post.findOne({ user: user_id }).where({ _id: post_id })
             if(!helongsToUser) return res.status(400).send('Este post não pertence a voçê')
 
             const postExists = await Post.findById(post_id)
@@ -59,6 +59,32 @@ module.exports = {
         }
     },
     async editPost(req, res) {
+        const { post_id } = req.params
+        const { description } = req.body
+        const { user_id } = req.headers
+        try {
+            const postExists = await Post.findById(post_id)
+            if(!postExists) return res.status(400).send('Post não existe')
 
+            const helongsToUser = await Post.findOne({ 
+                user: user_id 
+            }).where({
+                _id: post_id
+            })
+            if(!helongsToUser) return res.status(400).send('Este post não pertence a voçê')
+
+            const editPost = await Post.findByIdAndUpdate(post_id, {
+                description // na description quero atualizar a description
+            }, {
+                new: true
+            })
+            return res.status(400).send({
+                message: 'Update',
+                data: editPost,
+
+            })
+        } catch(err) {
+            return res.status(400).send(err)
+        }
     }
 }

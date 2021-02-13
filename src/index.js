@@ -10,6 +10,7 @@ const app = express()
 mongoose.connect(mongoConnection, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
+    useFindAndModify: false
 }, () => console.log('connectado ao banco'))
 
 app.use(express.json())
