@@ -15,7 +15,10 @@ module.exports = {
  
             await likedPost.save()
 
-            return res.status(200).send(likedPost)
+            return res.status(200).send({
+                message: 'Like realizado com sucesso!',
+                likedPost
+            })
         } catch(err) {
             return res.status(400).send(err)
         }
@@ -35,7 +38,10 @@ module.exports = {
             dislikedPost.likes.pull(user_id)
             await dislikedPost.save()
 
-            return res.status(200).send(dislikedPost)
+            return res.status(200).send({
+                message: 'Dislike realizado com sucesso!',
+                dislikedPost
+            })
         } catch(err) {
             return res.status(400).send(err)
         }

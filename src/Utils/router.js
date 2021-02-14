@@ -10,12 +10,17 @@ const router = Router()
 router.post('/users', UserController.createUser)
 // Listar usuarios
 router.get('/users', UserController.listUser)
+
 // Fazer login
 router.post('/login', LoginController.login)
 
+// Postar uma foto
 router.post('/posts', PostController.createPost)
+// Ver todas as fotos
 router.get('/posts', PostController.listAllPosts)
+// Deletar uma foto
 router.delete('/posts/:post_id', PostController.deletePost)
+// Editar uma foto
 router.put('/posts/:post_id', PostController.editPost)
 
 // Visualizar Perfil do usuario
@@ -24,10 +29,6 @@ router.get('/users/:user_id', ProfileController.listProfile)
 // Darlike em uma foto
 router.post('/posts/:post_id/like', LikeController.likePost)
 router.post('/posts/:post_id/dislike', LikeController.dislike)
-
-// Postar uma foto
-// Deletar uma foto
-// Editar uma foto
 
 
 router.get('/', (req, res) => {
