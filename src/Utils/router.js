@@ -23,6 +23,7 @@ router.get('/users/:user_id', ProfileController.listProfile)
 
 // Darlike em uma foto
 router.post('/posts/:post_id/like', LikeController.likePost)
+router.post('/posts/:post_id/dislike', LikeController.dislike)
 
 // Postar uma foto
 // Deletar uma foto
